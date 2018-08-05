@@ -1,0 +1,12 @@
+{
+  "name": "js-aws-config-samples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.286.2",
+    "convict": "^4.3.2",
+    "nconf": "^0.10.0",
+    "ramda": "^0.25.0"
+  }
+}

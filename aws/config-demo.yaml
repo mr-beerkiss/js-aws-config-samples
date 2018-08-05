@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Different ways of storing config in AWS
+Resources:
+  KMSKeyBaz:
+    Type: "AWS::KMS::Key"
+    Properties:
+      Description: An encryption key to encrypt and SSM Parameter
+      Enabled: true
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+            Action: "kms:*"
+            Resource: "*"
+      Tags:
+        -
+          Key: Purpose
+          Value: NodeConfigDemo
+  KMSKeyAliasBaz:
+    Type: "AWS::KMS::Alias"
+    Properties:
+      AliasName: "alias/config-demo/baz"
+      TargetKeyId: !Ref KMSKeyBaz
+  SSMParamFoo:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: MySSMFoo
+      Description: A test param to illustrate param digestion from SSM
+      Value: MySSMBar
+      Type: String
